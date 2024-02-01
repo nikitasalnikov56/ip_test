@@ -1,0 +1,45 @@
+{
+    "countries":[
+        {
+            "country":"United States",
+            "county_data":  [
+                {
+                    "state" : "New Jersey",
+                    "phone": "+1 (201) 123 45 67"
+                },
+                {
+                    "state" : "Washington",
+                    "phone": "+1 (201) 123 45 67"
+                },
+                {
+                    "state" : "New Jersey",
+                    "phone": "+1 (201) 123 45 67"
+                }
+            ]
+        },
+        {
+            "country":"United States",
+            "county_data":  [
+                {
+                    "state" : "New Jersey",
+                    "phone": "+1 (201) 123 45 67"
+                },
+                {
+                    "state" : "Washington",
+                    "phone": "+1 (201) 123 45 67"
+                },
+                {
+                    "state" : "New Jersey",
+                    "phone": "+1 (201) 123 45 67"
+                }
+            ]
+        }
+       
+       
+     
+        
+    ]
+}
+
+
+ 
