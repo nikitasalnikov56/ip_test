@@ -6,8 +6,11 @@ import 'package:flutter_new_test/ui/pages/home/card_widget.dart';
 import 'package:provider/provider.dart';
 
 class DataWidget extends StatelessWidget {
-  const DataWidget({super.key});
-
+  const DataWidget({
+    super.key,
+    required this.constraints,
+  });
+  final BoxConstraints constraints;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -18,7 +21,7 @@ class DataWidget extends StatelessWidget {
               child: Text('Error Loading Data'),
             );
           } else if (snapshot.hasData) {
-            return CountriesList(countriesData: snapshot.data);
+            return CountriesList(countriesData: snapshot.data, constraints: constraints,);
           }
           return const Center(child: CircularProgressIndicator());
         });
@@ -26,8 +29,9 @@ class DataWidget extends StatelessWidget {
 }
 
 class CountriesList extends StatelessWidget {
-  const CountriesList({super.key, required this.countriesData});
+  const CountriesList({super.key, required this.countriesData, required this.constraints});
   final CountriesData? countriesData;
+  final BoxConstraints constraints;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -44,6 +48,7 @@ class CountriesList extends StatelessWidget {
             CardWidget(
               countriesData: countriesData,
               index: i,
+              constraints: constraints,
             ),
           ],
         );

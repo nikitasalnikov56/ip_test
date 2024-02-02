@@ -15,7 +15,7 @@ class CustomAppBarWidget extends StatelessWidget
   Widget build(BuildContext context) {
     final model = context.watch<AppProvider>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       child: AppBar(
         backgroundColor: AppColors.white,
         leading: GestureDetector(

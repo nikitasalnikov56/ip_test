@@ -9,7 +9,11 @@ import 'package:provider/provider.dart';
 class ContainerItemsWidget extends StatelessWidget {
   const ContainerItemsWidget({
     super.key,
+    required this.orientation,
+    required this.constraints,
   });
+  final Orientation orientation;
+  final BoxConstraints constraints;
 
   List<Widget> rowItems(AppProvider model) {
     return model.str
@@ -20,24 +24,49 @@ class ContainerItemsWidget extends StatelessWidget {
             onTap: () {
               model.tabsIndex(entry.key);
             },
-            child: Container(
-              decoration: BoxDecoration(
-                color: model.thisIndex == entry.key
-                    ? AppColors.lime
-                    : AppColors.white,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
-              child: Text(
-                entry.value,
-                style: AppStyle.fontStyle.copyWith(
-                  fontSize: 13,
-                  color: model.thisIndex == entry.key
-                      ? AppColors.darkBlue
-                      : AppColors.grey,
-                ),
-              ),
-            ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              if (constraints.isNormalized) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: model.thisIndex == entry.key
+                        ? AppColors.lime
+                        : AppColors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text(
+                    entry.value,
+                    style: AppStyle.fontStyle.copyWith(
+                      fontSize: 13,
+                      color: model.thisIndex == entry.key
+                          ? AppColors.darkBlue
+                          : AppColors.grey,
+                    ),
+                  ),
+                );
+              } else {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: model.thisIndex == entry.key
+                        ? AppColors.lime
+                        : AppColors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+                  child: Text(
+                    entry.value,
+                    style: AppStyle.fontStyle.copyWith(
+                      fontSize: 13,
+                      color: model.thisIndex == entry.key
+                          ? AppColors.darkBlue
+                          : AppColors.grey,
+                    ),
+                  ),
+                );
+              }
+            }),
           ),
         )
         .toList();
@@ -46,11 +75,25 @@ class ContainerItemsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AppProvider>();
+    final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
+      width: orientation == Orientation.landscape && constraints.isNormalized
+          ? MediaQuery.of(context).size.width / 2
+          : double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal:
+            constraints.maxWidth >= 480 && devicePixelRatio == 1.5 ? 5 : 16,
+        vertical:
+            constraints.maxWidth >= 480 && devicePixelRatio == 1.5 ? 5 : 17,
+      ),
+      margin: EdgeInsets.only(
+          bottom: orientation == Orientation.landscape && devicePixelRatio > 1.5
+              ? 15
+              : 0),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(constraints.isNormalized ? 10 : 25),
       ),
       child: Column(
         children: [
